@@ -13,7 +13,7 @@ const CraigsList = async (...args) => {
     const cio = cheerio.load(content);
 
     const Class = class {                                                                                                                  
-        constctor(ususer, pass){
+        constctor(user, pass){
             this.user = user;
             this.pass = pass;
 			this.cheerio = cio;
@@ -36,6 +36,7 @@ const CraigsList = async (...args) => {
 
 	catch(e) {
 		// catch and handle any errors that occur or even rethrow them if you want
+		// also, note that console.error is NOT an error handling function!
 	   	console.error(e);
 	}
 })();
