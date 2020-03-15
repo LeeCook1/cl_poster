@@ -1,34 +1,41 @@
-const axios = require("axios")
-const cheerio = require('cheerio')
-const puppeteer = require('puppeteer')
+const axios = require('axios');
+const cheerio = require('cheerio');
+const puppeteer = require('puppeteer');
 
-const site = "https://accounts.craigslist.org/login";
+const site = 'https://accounts.craigslist.org/login';
 
-class Craigslist {
-  constctor(ususer, pass){ 
-    this.user = user;
-    this.pass = pass;
-    this._launchOptions = {
-      headless:false
-    };
-  }
-  async init() {
+const CraigsList = async (...args) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(site);
     const content = await page.content();
     await browser.close();
-    return cheerio.load(content);
-  }
-}
+    const cio = cheerio.load(content);
+
+    const Class = class {                                                                                                                  
+        constctor(ususer, pass){
+            this.user = user;
+            this.pass = pass;
+			this.cheerio = cio;
+            this._launchOptions = {
+                headless: false
+            };
+        }
+    };
+
+	return new Class(...args);
+};
 
 (async () => {
-  try {
-    const cl = new Craigslist('u','p');
-    const $ = await cl.init();
-    const email_elem = $('#inputEmailHandle');
-  }
-  catch(e) {
-    console.error(e);
-  }
+	try {
+		const cl = await CraigsList('u', 'p');
+		const email_elem = cl.cheerio('#inputEmailHandle');
+
+		// ... do more stuff
+	}
+
+	catch(e) {
+		// catch and handle any errors that occur or even rethrow them if you want
+	   	console.error(e);
+	}
 })();
