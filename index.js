@@ -13,7 +13,7 @@ const CraigsList = async (...args) => {
     const cio = cheerio.load(content);
 
     const Class = class {                                                                                                                  
-        constctor(user, pass){
+        constructor(user, pass){
             this.user = user;
             this.pass = pass;
 			this.cheerio = cio;
